@@ -1,4 +1,3 @@
-import SignalServer from 'simple-signal-server'
 require = require('esm')(module)
 const url = require('url')
 const express = require('express')
@@ -11,6 +10,7 @@ const https = require('https')
 
 const config = require('../config')
 const Io = require('socket.io')
+const SignalServer = require('simple-signal-server')
 
 const app = express()
 app.use(compression())
