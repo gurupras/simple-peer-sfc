@@ -4,13 +4,13 @@ backend:
     logdir: logs
 server:
   dev:
-    http_port: 3231
-    https_port: 3230
+    http_port: 3241
+    https_port: 3240
   production:
-    http_port: 3231
-    https_port: 3230
+    http_port: 3241
+    https_port: 3240
   force_https: true
   https:
     key: /etc/letsencrypt/live/twoseven.xyz/privkey.pem
     cert: /etc/letsencrypt/archive/twoseven.xyz/fullchain_dhparams_4096.pem
-  proxy_path: &proxypath https://dev.twoseven.xyz:3230/
+  proxy_path: &proxypath https://dev.twoseven.xyz:3240/
