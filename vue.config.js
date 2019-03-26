@@ -6,7 +6,7 @@ module.exports = {
     host: '0.0.0.0',
     port: 3242,
     disableHostCheck: true,
-    public: 'dev.twoseven.xyz',
+    public: 'misc.twoseven.xyz',
     https: config.server.https,
     proxy: {
       '/socket.io': {

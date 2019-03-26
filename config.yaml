@@ -11,6 +11,6 @@ server:
     https_port: 3240
   force_https: true
   https:
-    key: /etc/letsencrypt/live/twoseven.xyz/privkey.pem
-    cert: /etc/letsencrypt/archive/twoseven.xyz/fullchain_dhparams_4096.pem
-  proxy_path: &proxypath https://dev.twoseven.xyz:3240/
+    key: /etc/letsencrypt/live/misc.twoseven.xyz/privkey.pem
+    cert: /etc/letsencrypt/archive/misc.twoseven.xyz/fullchain.pem
+  proxy_path: &proxypath https://misc.twoseven.xyz:3240/
