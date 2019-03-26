@@ -4,7 +4,7 @@ const proxyPath = config.server.proxy_path
 module.exports = {
   devServer: {
     host: '0.0.0.0',
-    port: 3232,
+    port: 3242,
     disableHostCheck: true,
     public: 'dev.twoseven.xyz',
     https: config.server.https,
