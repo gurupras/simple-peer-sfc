@@ -12,10 +12,13 @@ module.exports = {
       '/socket.io': {
         target: proxyPath,
         ws: true
-      },
-      '/websocket': {
-        target: proxyPath,
-        ws: true
+      }
+    }
+  },
+  css: {
+    loaderOptions: {
+      sass: {
+        data: `@import '~bulma/sass/utilities/_all.sass';`
       }
     }
   }

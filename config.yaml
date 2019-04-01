@@ -14,3 +14,5 @@ server:
     key: /etc/letsencrypt/live/misc.twoseven.xyz/privkey.pem
     cert: /etc/letsencrypt/live/misc.twoseven.xyz/fullchain.pem
   proxy_path: &proxypath https://misc.twoseven.xyz:3240/
+
+rtc_config: ./rtc-config.yaml

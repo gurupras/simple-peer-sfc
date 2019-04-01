@@ -2,18 +2,21 @@ import EventEmitter from 'events'
 import SimpleSignalClient from 'simple-signal-client'
 
 class SimplePeer extends EventEmitter {
-  constructor (socket) {
+  constructor (socket, { webcamStream, iceServers }) {
     super()
     this.socket = socket
+    this.webcamStream = webcamStream
+    this.iceServers = iceServers
+  }
 
+  initialize () {
+    const self = this
+    const { socket, iceServers } = this
     const signalClient = new SimpleSignalClient(socket)
     signalClient.on('discover', async peerIDs => {
       for (const peerID of peerIDs) {
-        const { peer } = await signalClient.connect(peerID, null, {
-          streams: [self.selfWebcamStream],
-          config: {
-            iceServers
-          },
+        const { peer } = await signalClient.connect(peerID, {}, {
+          streams: self.webcamStream ? [self.webcamStream] : undefined,
           offerOptions: {
             offerToReceiveAudio: true,
             offerToReceiveVideo: true
@@ -22,15 +25,20 @@ class SimplePeer extends EventEmitter {
             offerToReceiveAudio: true,
             offerToReceiveVideo: true
           },
-          trickle: true
+          trickle: true,
+          iceServers
         })
+        console.log(`Found peer: connect`)
         self.setupPeer(peer)
       }
     })
     this.signalClient = signalClient
 
     signalClient.on('request', async request => {
-      const { peer } = await request.accept()
+      const { peer } = await request.accept({
+        streams: self.webcamStream ? [self.webcamStream] : undefined
+      })
+      console.log(`Found peer: request`)
       self.setupPeer(peer)
     })
     signalClient.discover()
@@ -38,6 +46,7 @@ class SimplePeer extends EventEmitter {
 
   setupPeer (peer) {
     const self = this
+    this.emit('new-peer', peer)
     var events = ['connect', 'close', 'signal', 'destroy', 'error', 'stream', 'data', 'track']
     events.forEach(evt => {
       peer.on(evt, data => {
@@ -45,12 +54,6 @@ class SimplePeer extends EventEmitter {
         self.emit(evt, { peer, data })
       })
     })
-    // If this peer was not an initiator, add the stream manually
-    if (!peer.initiator) {
-      peer.once('track', () => {
-        peer.addStream(self.selfWebcamStream)
-      })
-    }
   }
 }
 

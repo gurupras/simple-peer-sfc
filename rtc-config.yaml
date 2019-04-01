@@ -1,0 +1,10 @@
+stun:
+    - url: stun:misc.twoseven.xyz:4558
+    - url: stun:global.stun.twilio.com:3478?transport=udp
+turn:
+  -
+    url:
+    username:
+    secret:
+    expiry:
+    transports: udp
